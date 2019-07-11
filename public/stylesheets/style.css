@@ -1,0 +1,59 @@
+pre {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+body {
+  background-color: #05386B;
+}
+
+#clockDiv {
+  height: 75px;
+  width: 300px;
+  margin: auto;
+  position: relative;
+  top: 0; left: 0; bottom: 0; right: 0;
+  padding-top: 8px;
+  font-family: Nunito, sans-serif;
+  text-align: center;
+  color: white;
+  font-size: 38px;
+
+  border: solid 2px rgb(17, 9, 88);
+  background-color: #000000;
+  border-radius: 30px;
+}
+
+.vis-timeline {
+  background-color: rgb(245, 245, 255);
+  width: 1800px;
+  position: absolute;
+  left: 20px;
+}
+
+.vis-item {
+  background-color: #252525;
+  border-color: gray;
+  color: white;
+  border-width: 4px;
+  font-family: Nunito, sans-serif;
+}
+
+.vis-time-axis .vis-text.vis-major {
+  font-weight: bold;
+}
+
+.vis-timeline .red {
+  border-color: rgb(212, 6, 6);
+  border-width: 4px;
+}
+
+.vis-timeline .blue {
+  border-color: blue;
+  border-width: 4px;
+}
+
+.vis-item.vis-selected {
+  background-color: gold;
+  color: black;
+}
