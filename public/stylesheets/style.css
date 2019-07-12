@@ -13,7 +13,7 @@ body {
   margin: auto;
   position: relative;
   top: 0; left: 0; bottom: 0; right: 0;
-  padding-top: 8px;
+  padding-top: 4px;
   font-family: Nunito, sans-serif;
   text-align: center;
   color: white;
@@ -22,13 +22,18 @@ body {
   border: solid 2px rgb(17, 9, 88);
   background-color: #000000;
   border-radius: 30px;
+  float: left;
 }
 
 .vis-timeline {
-  background-color: rgb(245, 245, 255);
-  width: 1800px;
+  background-color: rgb(225, 242, 245);
+  width: 100%;
   position: absolute;
-  left: 20px;
+  left: 0%;
+  right: 0px;
+  top: 17%;
+  float: left;
+  font-family: Nunito, sans-serif;
 }
 
 .vis-item {
@@ -49,7 +54,7 @@ body {
 }
 
 .vis-timeline .blue {
-  border-color: blue;
+  border-color: rgb(9, 9, 221);
   border-width: 4px;
 }
 
