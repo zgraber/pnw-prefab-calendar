@@ -68,6 +68,7 @@ async function getAccessToken(cookies, res) {
         // We have a token but is it expired?
         // Expire 5 minutes early to account for clock differences
         const FIVE_MINUTES = 300000;
+        const TEN_MINUTES = 600000;
         const expiration = new Date(parseFloat(cookies.graph_token_expires - FIVE_MINUTES));
         if (expiration > new Date()) {
             // Token is still good, just return it
@@ -79,8 +80,10 @@ async function getAccessToken(cookies, res) {
     // refresh token
     const refresh_token = cookies.graph_refresh_token;
     if (refresh_token) {
+        console.log('Refreshing token!');
         const newToken = await oauth2.accessToken.create({refresh_token: refresh_token}).refresh();
         saveValuesToCookie(newToken, res);
+        //res.redirect('/calendar');
         return newToken.token.access_token;
     }
 

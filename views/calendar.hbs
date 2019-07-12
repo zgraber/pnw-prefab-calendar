@@ -43,9 +43,12 @@
         var date = dateTime[1];
         var content = date;
         if (!event.isAllDay){
-            content += (' ' + startTime)
+            content += (', ' + startTime)
         }
         content += ('<br>' + event.subject);
+        if(event.location.displayName) {
+            content += ('<br>' + event.location.displayName);
+        } 
 
         var className = "";
         if (event.importance === "high"){
@@ -86,7 +89,7 @@
     }
 
     var options = {
-        editable: true,
+        editable: false,
         margin: {
             item: 20,
             axis: 40

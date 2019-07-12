@@ -23,6 +23,7 @@ router.get('/', async function(req, res, next){
 
         // Set Start of calendar view to today at midnight
         const start = new Date(new Date().setHours(0,0,0));
+        //console.log(start);
         // Set End of calendar view to 7 days from start
         const end = new Date(new Date(start).setDate(start.getDate() + 7));
 
@@ -34,8 +35,8 @@ router.get('/', async function(req, res, next){
             .headers({
                 Prefer: "outlook.timezone=\"Pacific Standard Time\""
             })
-            .top(10)
-            .select('subject,start,end,categories,isAllDay,importance')
+            .top(20)
+            .select('subject,start,end,categories,isAllDay,importance,location')
             .orderby('start/dateTime DESC')
             .get();
 
@@ -49,7 +50,7 @@ router.get('/', async function(req, res, next){
             res.render('error', parms);
         }
     } else {
-        res.redirect('/');
+        res.redirect('/calendar');
     }
 });
 
