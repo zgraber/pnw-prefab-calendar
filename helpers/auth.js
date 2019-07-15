@@ -72,7 +72,8 @@ async function getAccessToken(cookies, res) {
         // Expire 5 minutes early to account for clock differences
         const FIVE_MINUTES = 300000;
         const TEN_MINUTES = 600000;
-        const expiration = new Date(parseFloat(cookies.graph_token_expires - FIVE_MINUTES));
+        const expiration = new Date(parseFloat(cookies.graph_token_expires - TEN_MINUTES));
+        console.log(expiration);
         if (expiration > new Date()) {
             // Token is still good, just return it
             return token;

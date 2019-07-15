@@ -16,6 +16,8 @@ router.get('/', async function(req, res, next){
         
         res.render('calendar', parms);
     } else {
+        console.log('User name sucks');
+        console.log(userName);
         res.redirect('/')
     }
     
@@ -61,6 +63,8 @@ router.get('/events', async function(req, res, next){
             res.status(500).json(parms);
         }
     } else {
+        console.log('Redirecting');
+        console.log(accessToken);
         res.redirect('/');
     }
 });
