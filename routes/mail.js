@@ -30,7 +30,9 @@ router.get('/', async function(req, res, next){
             .get();
 
             parms.messages = result.value;
-            res.render('mail', parms);
+            console.log(parms.messages);
+            //res.render('mail', parms);
+            res.redirect('/');
         } catch (err) {
             parms.message = 'Error retrieving messages';
             parms.error = {status: `${err.code}: ${err.message}` };
@@ -39,7 +41,7 @@ router.get('/', async function(req, res, next){
         }
     } else {
         // Redirect to home
-        res.redirect('/')
+        res.redirect('/');
     }
 });
 

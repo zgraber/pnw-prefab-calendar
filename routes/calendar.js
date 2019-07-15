@@ -10,9 +10,9 @@ router.get('/', async function(req, res, next){
     const accessToken = await authHelper.getAccessToken(req.cookies, res);
     const userName = req.cookies.graph_user_name;
 
+
     if (accessToken && userName) {
         parms.user = userName;
-        console.log(parms.user);
 
         //Initialize Graph client
         const client = graph.Client.init({
@@ -23,26 +23,26 @@ router.get('/', async function(req, res, next){
 
         // Set Start of calendar view to today at midnight
         const start = new Date(new Date().setHours(0,0,0));
-        //console.log(start);
+
         // Set End of calendar view to 7 days from start
         const end = new Date(new Date(start).setDate(start.getDate() + 7));
 
         try {
             // Get the first x events for the coming week
-            let x = 10
+            let x = 20
             const result = await client
             .api(`/me/calendarView?startDateTime=${start.toISOString()}&endDateTime=${end.toISOString()}`)
             .headers({
                 Prefer: "outlook.timezone=\"Pacific Standard Time\""
             })
-            .top(20)
+            .top(x)
             .select('subject,start,end,categories,isAllDay,importance,location')
             .orderby('start/dateTime DESC')
             .get();
 
             parms.events = result.value;
             console.log(result.value);
-            res.render('calendar', {encodedJson: encodeURIComponent(JSON.stringify(parms)), user: userName, title: 'Calendar', active: { calendar:true } });
+            res.render('calendar', {encodedJson: encodeURIComponent(JSON.stringify(parms)), user: userName, title: 'Calendar', active: { calendar:true }, scroll: true });
         } catch (err) {
             parms.message = 'Error retrieving events';
             parms.error = { status: `${err.code}: ${err.message}`};
@@ -50,7 +50,14 @@ router.get('/', async function(req, res, next){
             res.render('error', parms);
         }
     } else {
-        res.redirect('/calendar');
+        console.log(userName);
+        // Access token okay but userName not because req.cookies not refreshed
+        if (accessToken) {
+            res.redirect('/calendar');
+        // Access token undefined and user undefined so redirect to home
+        } else {
+            res.redirect('/');
+        }
     }
 });
 

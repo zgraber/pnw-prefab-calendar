@@ -47,7 +47,7 @@
         }
         content += ('<br>' + event.subject);
         if(event.location.displayName) {
-            content += ('<br>' + event.location.displayName);
+            content += (';<br>' + event.location.displayName);
         } 
 
         var className = "";
@@ -56,7 +56,7 @@
         } else if (event.importance === "low") {
             className = "blue";
         }
-        console.log(className);
+
         if (event.categories.length === 0) {
             data.add({
                 id: j,
@@ -93,9 +93,13 @@
         margin: {
             item: 20,
             axis: 40
+        },
+        orientation: {
+            axis: 'top',
+            item: 'top'
         }
     };
-    console.log(data)
+    //console.log(data)
     var container = document.getElementById('visualization');
     var timeline = new vis.Timeline(container, data, groups, options);
 

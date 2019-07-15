@@ -42,9 +42,12 @@ function saveValuesToCookie(token, res) {
     // Parse the identity token
     const user = jwt.decode(token.token.id_token);
 
+    // So all theses cookies are valid for about 1-3 months but since we are refreshing often, these cookies should reset anyway
+
     // Save the acess token in a cookie
     res.cookie('graph_access_token', token.token.access_token, {maxAge: 3600000, httpOnly: true});
     // Save the user's name in a cookie
+    // Valid for about 42 days after first login
     res.cookie('graph_user_name', user.name, {maxAge: 3600000, httpOnly: true});
     // Save the refresh token in a cookie
     res.cookie('graph_refresh_token', token.token.refresh_token, {maxAge: 7200000, httpOnly: true});
@@ -83,7 +86,6 @@ async function getAccessToken(cookies, res) {
         console.log('Refreshing token!');
         const newToken = await oauth2.accessToken.create({refresh_token: refresh_token}).refresh();
         saveValuesToCookie(newToken, res);
-        //res.redirect('/calendar');
         return newToken.token.access_token;
     }
 
