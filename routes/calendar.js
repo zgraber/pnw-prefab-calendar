@@ -5,15 +5,25 @@ var graph = require('@microsoft/microsoft-graph-client');
 
 /* GET /calendar */
 router.get('/', async function(req, res, next){
-    let parms = {};
-
-    const accessToken = await authHelper.getAccessToken(req.cookies, res);
     const userName = req.cookies.graph_user_name;
-
-
-    if (accessToken && userName) {
+    if (userName) {
+        let parms = {};
+        parms.title = 'Calendar';
+        parms.active = {calendar:true};
+        
         parms.user = userName;
+        parms.scroll = true;
+        
+        res.render('calendar', parms);
+    } else {
+        res.redirect('/')
+    }
+    
+});
 
+router.get('/events', async function(req, res, next){
+    const accessToken = await authHelper.getAccessToken(req.cookies, res);
+    if (accessToken) {
         //Initialize Graph client
         const client = graph.Client.init({
             authProvider: (done) => {
@@ -40,24 +50,18 @@ router.get('/', async function(req, res, next){
             .orderby('start/dateTime DESC')
             .get();
 
-            parms.events = result.value;
+            let package = result.value;
             console.log(result.value);
-            res.render('calendar', {encodedJson: encodeURIComponent(JSON.stringify(parms)), user: userName, title: 'Calendar', active: { calendar:true }, scroll: true });
+            res.json(package);
         } catch (err) {
+            var parms = {};
             parms.message = 'Error retrieving events';
             parms.error = { status: `${err.code}: ${err.message}`};
             parms.debug = JSON.stringify(err.body, null, 2);
-            res.render('error', parms);
+            res.status(500).json(parms);
         }
     } else {
-        console.log(userName);
-        // Access token okay but userName not because req.cookies not refreshed
-        if (accessToken) {
-            res.redirect('/calendar');
-        // Access token undefined and user undefined so redirect to home
-        } else {
-            res.redirect('/');
-        }
+        res.redirect('/');
     }
 });
 
