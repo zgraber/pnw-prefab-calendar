@@ -3,18 +3,18 @@ var router = express.Router();
 var authHelper = require('../helpers/auth');
 var graph = require('@microsoft/microsoft-graph-client');
 
-/* GET /calendar */
+/* GET /calendar/timeline */
 router.get('/timeline', async function(req, res, next){
     const userName = req.cookies.graph_user_name;
     if (userName) {
         let parms = {};
-        parms.title = 'Calendar';
+        parms.title = 'Timeline View';
         parms.active = {timeline:true};
         
         parms.user = userName;
         parms.scroll = true;
         
-        res.render('calendar', parms);
+        res.render('timeline', parms);
     } else {
         console.log('User name sucks');
         console.log(userName);
@@ -22,6 +22,23 @@ router.get('/timeline', async function(req, res, next){
     }
     
 });
+
+router.get('/month', async function(req, res, next) {
+    const userName = req.cookies.graph_user_name;
+    if (userName) {
+        let parms = {};
+        parms.title = 'Month View';
+        parms.active = {month:true};
+        
+        parms.user = userName;
+        
+        res.render('month', parms);
+    } else {
+        console.log('User name sucks');
+        console.log(userName);
+        res.redirect('/')
+    }
+})
 
 router.get('/events', async function(req, res, next){
     const accessToken = await authHelper.getAccessToken(req.cookies, res);
@@ -32,18 +49,18 @@ router.get('/events', async function(req, res, next){
                 done(null, accessToken);
             }
         });
-
+        console.log(req.query);
         // Set Start of calendar view to today at midnight
-        const start = new Date(new Date().setHours(0,0,0));
+        const start = req.query.startDateTime;
 
         // Set End of calendar view to 7 days from start
-        const end = new Date(new Date(start).setDate(start.getDate() + 31));
-        console.log(end);
+        const end = req.query.endDateTime;
+
         try {
             // Get the first x events for the coming week
             let x = 20
             const result = await client
-            .api(`/me/calendarView?startDateTime=${start.toISOString()}&endDateTime=${end.toISOString()}`)
+            .api(`/me/calendarView?startDateTime=${start}&endDateTime=${end}`)
             .headers({
                 Prefer: "outlook.timezone=\"Pacific Standard Time\""
             })

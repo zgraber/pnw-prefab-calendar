@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var exhbs = require('express-handlebars');
 var compression = require('compression');
+var bodyParser = require('body-parser');
 
 require('dotenv').config();
 var indexRouter = require('./routes/index');
@@ -25,7 +26,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '/node_modules/vis/dist')));
+app.use(express.static(path.join(__dirname, '/node_modules/@fullcalendar')));
 app.use(compression());
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
 
 // Routes
 app.use('/', indexRouter);

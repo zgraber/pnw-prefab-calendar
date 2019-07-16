@@ -11,7 +11,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel='stylesheet' href='/vis.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="icon" href="">
+    {{#if active.month}}
+    <link href='/core/main.css' rel='stylesheet' />
+    <link href='/daygrid/main.css' rel='stylesheet' />
+    <script src='/core/main.js'></script>
+    <script src='/daygrid/main.js'></script>
+    {{/if}}
   </head>
   <body>
     <!-- Nav bar -->
@@ -33,6 +38,11 @@
             -->
             <li class="nav-item{{#if active.timeline}} active{{/if}}">
               <a class="nav-link" href="/calendar/timeline">Timeline</a>
+            </li>
+          {{/if}}
+          {{#if user}}
+            <li class="nav-item{{#if active.month}} active{{/if}}">
+              <a class="nav-link" href="/calendar/month">Month View</a>
             </li>
           {{/if}}
         </ul>

@@ -62,3 +62,19 @@ body {
   background-color: gold;
   color: black;
 }
+
+#calendar {
+  background-color: white;
+  margin: 40px auto;
+  padding: 15px;
+}
+
+.fc-content {
+  background-color: #000000;
+  color: white;
+  border-color: black;
+}
+.fc-event {
+  background-color: black !important;
+  border-color: black !important;
+}

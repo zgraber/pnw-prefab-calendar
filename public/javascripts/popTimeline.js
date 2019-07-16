@@ -22,8 +22,13 @@ function getDateTime(dateStr) {
     });
     return [time, myDate];
 }
+// Set Start of calendar view to today at midnight
+var start = new Date(new Date().setHours(0,0,0));
 
-var events =  $.getJSON("/calendar/events", function() {
+// Set End of calendar view to a week from now
+var end = new Date(new Date(start).setDate(start.getDate() + 8));
+
+var events =  $.getJSON('/calendar/events?startDateTime=' + start.toISOString() + '&endDateTime=' + end.toISOString(), function() {
     console.log('Success');
 })
 .done(function(events){
