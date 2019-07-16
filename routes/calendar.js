@@ -4,12 +4,12 @@ var authHelper = require('../helpers/auth');
 var graph = require('@microsoft/microsoft-graph-client');
 
 /* GET /calendar */
-router.get('/', async function(req, res, next){
+router.get('/timeline', async function(req, res, next){
     const userName = req.cookies.graph_user_name;
     if (userName) {
         let parms = {};
         parms.title = 'Calendar';
-        parms.active = {calendar:true};
+        parms.active = {timeline:true};
         
         parms.user = userName;
         parms.scroll = true;
@@ -37,8 +37,8 @@ router.get('/events', async function(req, res, next){
         const start = new Date(new Date().setHours(0,0,0));
 
         // Set End of calendar view to 7 days from start
-        const end = new Date(new Date(start).setDate(start.getDate() + 7));
-
+        const end = new Date(new Date(start).setDate(start.getDate() + 31));
+        console.log(end);
         try {
             // Get the first x events for the coming week
             let x = 20
