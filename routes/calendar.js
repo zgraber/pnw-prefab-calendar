@@ -16,7 +16,7 @@ router.get('/timeline', async function(req, res, next){
         
         res.render('timeline', parms);
     } else {
-        console.log('User name sucks');
+        console.log('User Invalid:');
         console.log(userName);
         res.redirect('/')
     }
@@ -34,7 +34,7 @@ router.get('/month', async function(req, res, next) {
         
         res.render('month', parms);
     } else {
-        console.log('User name sucks');
+        console.log('User Invalid:');
         console.log(userName);
         res.redirect('/')
     }
@@ -49,6 +49,7 @@ router.get('/grid', async function(req, res, next){
         parms.user = userName;
         res.render('grid', parms);
     } else {
+        console.log('User Invalid:');
         console.log(userName);
         res.redirect('/');
     }
