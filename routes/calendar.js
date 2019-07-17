@@ -28,7 +28,7 @@ router.get('/month', async function(req, res, next) {
     if (userName) {
         let parms = {};
         parms.title = 'Month View';
-        parms.active = {month:true};
+        parms.active = {full: true, month:true};
         
         parms.user = userName;
         
@@ -37,6 +37,20 @@ router.get('/month', async function(req, res, next) {
         console.log('User name sucks');
         console.log(userName);
         res.redirect('/')
+    }
+})
+
+router.get('/grid', async function(req, res, next){
+    const userName = req.cookies.graph_user_name;
+    if(userName) {
+        let parms = {};
+        parms.title = 'Time Grid';
+        parms.active = {full: true, grid: true};
+        parms.user = userName;
+        res.render('grid', parms);
+    } else {
+        console.log(userName);
+        res.redirect('/');
     }
 })
 

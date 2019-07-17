@@ -67,6 +67,7 @@ body {
   background-color: white;
   margin: 40px auto;
   padding: 15px;
+  height: auto;
 }
 
 .fc-content {
@@ -77,4 +78,9 @@ body {
 .fc-event {
   background-color: black !important;
   border-color: black !important;
+}
+
+#grid {
+  background-color: white;
+  padding: 15px;
 }

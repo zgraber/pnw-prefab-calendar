@@ -11,11 +11,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel='stylesheet' href='/vis.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    {{#if active.month}}
+    {{#if active.full}}
     <link href='/core/main.css' rel='stylesheet' />
     <link href='/daygrid/main.css' rel='stylesheet' />
+    <link href='/timegrid/main.css' rel='stylesheet' />
+
     <script src='/core/main.js'></script>
     <script src='/daygrid/main.js'></script>
+    <script src='/timegrid/main.js'></script>
     {{/if}}
   </head>
   <body>
@@ -43,6 +46,11 @@
           {{#if user}}
             <li class="nav-item{{#if active.month}} active{{/if}}">
               <a class="nav-link" href="/calendar/month">Month View</a>
+            </li>
+          {{/if}}
+          {{#if user}}
+            <li class="nav-item{{#if active.grid}} active{{/if}}">
+              <a class="nav-link" href="/calendar/grid">Grid View</a>
             </li>
           {{/if}}
         </ul>
@@ -88,6 +96,10 @@
     <script src="/javascripts/clock.js"></script>
     {{#if scroll}}
     <script src="/javascripts/scroller.js"></script>
+    {{/if}}
+
+    {{#if active.grid}}
+    <script src="/javascripts/scrollGrid.js"></script>
     {{/if}}
   </body>
 </html>
