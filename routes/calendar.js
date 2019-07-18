@@ -4,34 +4,39 @@ var authHelper = require('../helpers/auth');
 var graph = require('@microsoft/microsoft-graph-client');
 
 /* GET /calendar/timeline */
-router.get('/timeline', async function(req, res, next){
+router.get('/timeline', async function (req, res, next) {
     const userName = req.cookies.graph_user_name;
     if (userName) {
         let parms = {};
         parms.title = 'Timeline View';
-        parms.active = {timeline:true};
-        
+        parms.active = {
+            timeline: true
+        };
+
         parms.user = userName;
         parms.scroll = true;
-        
+
         res.render('timeline', parms);
     } else {
         console.log('User Invalid:');
         console.log(userName);
         res.redirect('/')
     }
-    
+
 });
 
-router.get('/month', async function(req, res, next) {
+router.get('/month', async function (req, res, next) {
     const userName = req.cookies.graph_user_name;
     if (userName) {
         let parms = {};
         parms.title = 'Month View';
-        parms.active = {full: true, month:true};
-        
+        parms.active = {
+            full: true,
+            month: true
+        };
+
         parms.user = userName;
-        
+
         res.render('month', parms);
     } else {
         console.log('User Invalid:');
@@ -40,12 +45,15 @@ router.get('/month', async function(req, res, next) {
     }
 })
 
-router.get('/grid', async function(req, res, next){
+router.get('/grid', async function (req, res, next) {
     const userName = req.cookies.graph_user_name;
-    if(userName) {
+    if (userName) {
         let parms = {};
         parms.title = 'Time Grid';
-        parms.active = {full: true, grid: true};
+        parms.active = {
+            full: true,
+            grid: true
+        };
         parms.user = userName;
         res.render('grid', parms);
     } else {
@@ -55,7 +63,7 @@ router.get('/grid', async function(req, res, next){
     }
 })
 
-router.get('/events', async function(req, res, next){
+router.get('/events', async function (req, res, next) {
     const accessToken = await authHelper.getAccessToken(req.cookies, res);
     if (accessToken) {
         //Initialize Graph client
@@ -75,14 +83,14 @@ router.get('/events', async function(req, res, next){
             // Get the first x events for the coming week
             //let x = 100
             const result = await client
-            .api(`/me/calendarView?startDateTime=${start}&endDateTime=${end}`)
-            .headers({
-                Prefer: "outlook.timezone=\"Pacific Standard Time\""
-            })
-            //.top(x)
-            .select('subject,start,end,categories,isAllDay,importance,location')
-            .orderby('start/dateTime DESC')
-            .get();
+                .api(`/me/calendarView?startDateTime=${start}&endDateTime=${end}`)
+                .headers({
+                    Prefer: "outlook.timezone=\"Pacific Standard Time\""
+                })
+                //.top(x)
+                .select('subject,start,end,categories,isAllDay,importance,location')
+                .orderby('start/dateTime DESC')
+                .get();
 
             let package = result.value;
             console.log(result.value);
@@ -90,7 +98,9 @@ router.get('/events', async function(req, res, next){
         } catch (err) {
             var parms = {};
             parms.message = 'Error retrieving events';
-            parms.error = { status: `${err.code}: ${err.message}`};
+            parms.error = {
+                status: `${err.code}: ${err.message}`
+            };
             parms.debug = JSON.stringify(err.body, null, 2);
             res.status(500).json(parms);
         }
