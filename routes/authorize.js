@@ -12,7 +12,7 @@ router.get('/', async function(req, res, next){
             // Stores access token in session cookie
             await authHelper.getTokenFromCode(code, res);
             // Redirect to home
-            res.redirect('/')
+            res.redirect('/calendar/month');
         } catch (error) {
             res.render('error', {title: 'Error', message: 'Error exchanging code for token', error: error});
         }
@@ -26,7 +26,7 @@ router.get('/signout', function(req, res, next){
     authHelper.clearCookies(res);
 
     // Redirect to home
-    res.redirect('/')
+    res.redirect('/home')
 })
 
 module.exports = router;

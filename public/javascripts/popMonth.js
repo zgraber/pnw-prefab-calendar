@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
+    var elem = document.documentElement;
+
+    function openFullscreen () {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullscreen) {
+            elem.mozRequestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        }
+    }
+    openFullscreen();
+
     let calendarEl1 = document.getElementById('calendar1');
     let calendarEl2 = document.getElementById('calendar2');
 
