@@ -35,7 +35,7 @@ router.get('/home', async function(req, res, next) {
   //console.log('Sign in URL:');
   console.log(parms);
 
-  //res.render('index', parms);
+  res.render('index', parms);
 });
 
 module.exports = router;
