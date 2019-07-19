@@ -88,7 +88,7 @@ async function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
 
-  await open('http://localhost:3000');
+  await open('http://localhost:3000', {app:['google-chrome', '--kiosk']});
 
   debug('Listening on ' + bind);
 
