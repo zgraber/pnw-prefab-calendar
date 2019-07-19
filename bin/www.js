@@ -87,9 +87,9 @@ async function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  
+
   await open('http://localhost:3000');
-  
+
   debug('Listening on ' + bind);
 
 }
