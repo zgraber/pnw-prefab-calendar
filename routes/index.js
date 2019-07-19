@@ -32,8 +32,10 @@ router.get('/home', async function(req, res, next) {
     parms.signInUrl = authHelper.getAuthUrl();
     //parms.debug = parms.signInUrl;
   }
-  
-  res.render('index', parms);
+  //console.log('Sign in URL:');
+  console.log(parms);
+
+  //res.render('index', parms);
 });
 
 module.exports = router;
