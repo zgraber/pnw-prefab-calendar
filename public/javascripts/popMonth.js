@@ -53,13 +53,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 aspectRatio: 2,
                 eventColor: '#000000',
                 eventTextColor: '#FFFFFF',
+                defaultDate: date,
                 eventRender: function (event) {
                     //Lowers the opacity of events that have already passed
                     let now = new Date();
                     now = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                     let then = new Date(event.event.end);
                     if (then < now) {
-                        event.el.style['opacity'] = 0.2;
+                        event.el.style['opacity'] = 0.3;
                     }
                 },
             });
