@@ -96,6 +96,7 @@ router.get('/grid', async function (req, res, next) {
 
 // A route to get all events from startDateTime to endDateTime
 // TODO: Add category color to each event and make a color key for the categories
+// TODO: Make sure api path is correct
 router.get('/events', async function (req, res, next) {
     const accessToken = await authHelper.getAccessToken(req.cookies, res);
     if (accessToken) {
@@ -131,6 +132,26 @@ router.get('/events', async function (req, res, next) {
 
             // Uncomment x and .top lines to cap results
             //let x = 100
+
+            // For getting group calendar events
+            /*
+            const calendars = await client
+                .api('/me/calendars')
+                .get();
+
+            console.log(calendars);
+            
+            let id;
+            const groupResults = await client
+                .api(`/groups/${id}/events`)
+                .headers({
+                    Prefer: "outlook.timezone=\"Pacific Standard Time\""
+                })
+                .select('subject,start,end,categories,isAllDay,importance,location')
+                .orderby('start/dateTime DESC')
+                .get();
+            let groupEvents = groupResults.value;
+            */
             const result = await client
                 .api(`/me/calendarView?startDateTime=${start}&endDateTime=${end}`)
                 .headers({
