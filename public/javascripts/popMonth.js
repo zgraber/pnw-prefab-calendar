@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 eventColor: '#000000',
                 eventTextColor: '#FFFFFF',
                 defaultDate: date,
+                showNonCurrentDates: false,
                 eventRender: function (event) {
                     //Lowers the opacity of events that have already passed
                     let now = new Date();
@@ -75,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 //Sets defaultDate to end of next month
                 defaultDate: end.toISOString(),
                 eventColor: '#000000',
-                eventTextColor: '#FFFFFF'
+                eventTextColor: '#FFFFFF',
+                showNonCurrentDates: false
             });
 
             // Render both calendars and remove the navigation elements
