@@ -41,7 +41,7 @@ The Password should be a secret so that will be stored elsewhere
     APP_SCOPES=openid profile offline_access User.Read Mail.Read MailboxSettings.Read Calendars.Read
     REDIRECT_URI=http://localhost:3000/authorize
 ```
-1. To verify everything works run ```$ npm start``` which should pull up a log in the terminal and a Chrome window in kiosk mode
+4. To verify everything works run ```$ npm start``` which should pull up a log in the terminal and a Chrome window in kiosk mode
 with a MS login page (Windows has trouble with kiosk mode)
 ### Running on startup/reboot
 This step daemonizes the app with a service called PM2
