@@ -93,8 +93,10 @@ async function onListening() {
   var OSName="Unknown OS";
   if (process.platform === 'win32') browser="chrome";
   if (process.platform === 'linux') OSName="google-chrome";
-
-  await open('http://localhost:3000', {app:[browser, '--kiosk', '--disable-infobars', '--app=http://localhost:3000']});
+  
+  let app = [browser, '--kiosk', '--disable-infobars', '--app=http://localhost:3000'];
+ 
+  await open('http://localhost:3000', {app:app});
 
   debug('Listening on ' + bind);
 
