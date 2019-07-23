@@ -2,7 +2,7 @@
 An Express.js web app that uses OAuth 2.0 to access the Microsoft Graph API to get event data to be displayed in a 2 
 month calendar view (other views are also available). Ubuntu will be the preferred OS to run on.
 For more info on Express.js - https://expressjs.com/
-
+![Month View](https://i.ibb.co/HY02Tkz/calendar.png "title")
 ## Getting Started
 ### Prerequisites
 * System running Ubuntu (Windows works for some elements)
