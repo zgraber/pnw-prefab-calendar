@@ -88,7 +88,13 @@ async function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
 
-  await open('http://localhost:3000', {app:['google-chrome', '--kiosk', '--disable-infobars', '--app=http://localhost:3000']});
+  var browser = 'google-chrome'
+  // Detects the OS
+  var OSName="Unknown OS";
+  if (process.platform === 'win32') browser="chrome";
+  if (process.platform === 'linux') OSName="google-chrome";
+
+  await open('http://localhost:3000', {app:[browser, '--kiosk', '--disable-infobars', '--app=http://localhost:3000']});
 
   debug('Listening on ' + bind);
 
