@@ -34,8 +34,7 @@ using git on the machine to clone the repo locally. This takes more knowledge of
 This should make a folder called node_modules
 1. The app also needs a .env file to get necessary info about the app.
 The .env file should be placed in the main app directory and should look like the following.
-You can get the Id from Azure AD admin center under App registrations. 
-The Password should be a secret so that will be stored elsewhere
+Look for the APP_ID and APP_PASSWORD in pnw-prefab-calendar.docx.
 ```
     APP_ID=<YOUR_APP_ID>
     APP_PASSWORD=<YOUR_APP_PASSWORD>
