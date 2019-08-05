@@ -5,31 +5,31 @@ var graph = require('@microsoft/microsoft-graph-client');
 
 // A map for colors because Microsoft hates me and doesn't provide this in response
 var colorMap = {
-    preset0: 'Red',
-    preset1: 'Orange',
-    preset2: 'PeachPuff',
-    preset3: 'Yellow',
-    preset4: 'Green',
-    preset5: 'LightSeaGreen',
-    preset6: 'OliveDrab',
-    preset7: 'Blue',
-    preset8: 'MediumPurple',
-    preset9: 'Pink',
-    preset10: 'LightGrey',
-    preset11: 'SteelBlue',
-    preset12: 'Grey',
-    preset13: 'DarkGrey',
-    preset14: 'Black',
-    preset15: 'DarkRed',
-    preset16: 'DarkOrange',
-    preset17: 'Sienna',
-    preset18: 'DarkKhaki',
-    preset19: 'DarkGreen',
-    preset20: 'Teal',
-    preset21: 'DarkOliveGreen',
-    preset22: 'DarkBlue',
-    preset23: 'Indigo',
-    preset24: 'Purple'
+    preset0: '#FF0000',
+    preset1: '#FFA500',
+    preset2: '#FFDAB9',
+    preset3: '#FFFF00',
+    preset4: '#008000',
+    preset5: '#20B2AA',
+    preset6: '#6B8E23',
+    preset7: '#0000FF',
+    preset8: '#9370DB',
+    preset9: '#FFC0CB',
+    preset10: '#D3D3D3',
+    preset11: '#4682B4',
+    preset12: '#808080',
+    preset13: '#A9A9A9',
+    preset14: '#000000',
+    preset15: '#8B0000',
+    preset16: '#FF8C00',
+    preset17: '#A0522D',
+    preset18: '#BDB76B',
+    preset19: '#006400',
+    preset20: '#008080',
+    preset21: '#556B2F',
+    preset22: '#00008B',
+    preset23: '#4B0082',
+    preset24: '#800080'
 }
 
 /* GET /calendar/timeline */
@@ -118,7 +118,7 @@ router.get('/events', async function (req, res, next) {
         try {
             // Get the categories to assign colors
             // Don't have permissions for this yet
-            /*categories = await client
+            categories = await client
                 .api('/me/outlook/masterCategories')
                 .get();
 
@@ -128,10 +128,10 @@ router.get('/events', async function (req, res, next) {
                 cat = categories[cat];
                 catColor[cat.displayName] = colorMap[cat.color];
             }
-            console.log(catColor);*/
+            console.log(catColor);
 
             // Uncomment x and .top lines to cap results
-            //let x = 100
+            let x = 100
 
             // For getting group calendar events
             /*
@@ -157,12 +157,21 @@ router.get('/events', async function (req, res, next) {
                 .headers({
                     Prefer: "outlook.timezone=\"Pacific Standard Time\""
                 })
-                //.top(x)
+                .top(x)
                 .select('subject,start,end,categories,isAllDay,importance,location')
                 .orderby('start/dateTime DESC')
                 .get();
 
             let package = result.value;
+            for (event in package) {
+                event = package[event];
+                if (event.categories) {
+                    console.log('Event has Categories');
+                    event.color = catColor[event.categories[0]];
+                } else {
+                    event.color = "Black";
+                }
+            }
             console.log(result.value);
             //send results as json to client
             res.json(package);
