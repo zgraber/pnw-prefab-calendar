@@ -21,10 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var date = new Date();
     // Set Start of calendar view to the first of this month
     var start = new Date(date.getFullYear(), date.getMonth(), 1);
-
+    //var start = new Date(new Date().setHours(0,0,0));
+    console.log(start)
     // Set End of calendar view to the end of next month
     var end = new Date(date.getFullYear(), date.getMonth() + 2, 0);
-
+    //var end = new Date(new Date(start).setDate(start.getDate() + 30));
+    console.log(end)
     // Gets the JSON with events of calendar 
     $.getJSON('/calendar/events?startDateTime=' + start.toISOString() + '&endDateTime=' + end.toISOString(), function () {
             console.log('Success');
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     //console.log(event.event.title);
                     //console.log(event.event);
                     if (then < now) {
-                        event.el.style['opacity'] = 0.18;
+                        event.el.style['opacity'] = 0.25;
                     }
                 },
             });

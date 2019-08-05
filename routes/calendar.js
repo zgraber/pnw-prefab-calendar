@@ -131,7 +131,7 @@ router.get('/events', async function (req, res, next) {
             console.log(catColor);
 
             // Uncomment x and .top lines to cap results
-            //let x = 100
+            let x = 100
 
             // For getting group calendar events
             /*
@@ -157,7 +157,7 @@ router.get('/events', async function (req, res, next) {
                 .headers({
                     Prefer: "outlook.timezone=\"Pacific Standard Time\""
                 })
-                //.top(x)
+                .top(x)
                 .select('subject,start,end,categories,isAllDay,importance,location')
                 .orderby('start/dateTime DESC')
                 .get();
