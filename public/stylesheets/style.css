@@ -1,3 +1,8 @@
+:root {
+  --light: 80;
+  --threshold: 60;
+}
+
 pre {
   word-wrap: break-word;
   white-space: pre-wrap;
@@ -95,9 +100,6 @@ body {
 }
 
 .fc-day-grid-event > .fc-content {
-  /*background-color: #000000;
-  color: white;
-  border-color: black;*/
   white-space: unset !important;
 }
 

@@ -35,12 +35,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Process the data and push what's needed into events array
             for (item in data) {
                 item = data[item];
+                //console.log(item.end)
                 events.push({
                     title: item.subject,
                     start: item.start.dateTime,
                     end: item.end.dateTime,
-                    allDay: item.allDay,
-                    eventColor: '#0000FF'
+                    allDay: true,
+                    color: item.color
                 })
             }
 
@@ -51,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Height adjusts the size of the calendar itself, not the white background
                 height: $(window).height() * 0.9,
                 aspectRatio: 2,
-                eventColor: '#000000',
                 eventTextColor: '#FFFFFF',
                 defaultDate: date,
                 showNonCurrentDates: false,
@@ -59,9 +59,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     //Lowers the opacity of events that have already passed
                     let now = new Date();
                     now = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                    let then = new Date(event.event.end);
+                    let then;
+                    if (event.event.end) {
+                        then = new Date(event.event.end);
+                    } else {
+                        then = new Date (event.event.start);
+                        then.setDate(then.getDate() + 1); 
+                    }
+                    //console.log(event.event.title);
+                    //console.log(event.event);
                     if (then < now) {
-                        event.el.style['opacity'] = 0.3;
+                        event.el.style['opacity'] = 0.18;
                     }
                 },
             });
@@ -75,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 aspectRatio: 2,
                 //Sets defaultDate to end of next month
                 defaultDate: end.toISOString(),
-                eventColor: '#000000',
                 eventTextColor: '#FFFFFF',
                 showNonCurrentDates: false
             });
@@ -84,6 +91,22 @@ document.addEventListener('DOMContentLoaded', function () {
             calendar1.render();
             calendar2.render();
             $('.fc-button').remove();
+
+            $(".fc-day-grid-event").each(function(index) {
+                var rgb = this.style.backgroundColor
+                try {
+                    rgb = rgb.substring(4, rgb.length-1)
+                        .replace(/ /g, '')
+                        .split(',');
+                    if ( (rgb[0]*0.299 + rgb[1]*0.587 + rgb[2]*0.114) > 186) {
+                        this.style.color = "Black";
+                    } else {
+                        this.style.color = "White";
+                    }
+                } catch (err){
+                    this.style.color = "White";
+                }
+            });
         })
         .fail(function (err) {
             // Throw in an error message in the .error element
