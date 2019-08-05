@@ -92,7 +92,6 @@ async function onListening() {
   // Detects the OS
   var OSName="Unknown OS";
   if (process.platform === 'win32') browser="chrome";
-  if (process.platform === 'linux') OSName="google-chrome";
   
   let app = [browser, '--kiosk', '--disable-infobars', '--app=http://localhost:3000'];
  
